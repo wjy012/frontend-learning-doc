@@ -125,3 +125,23 @@ public class BluetoothAdapterPlugin extends CordovaPlugin {
     }
 }
 ```
+
+### public class PermissionPlugin extends CordovaPlugin
+
+对权限请求功能进行二次封装
+
+用法：
+
+```java
+requestPermissions(Manifest.permission.READ_CONTACTS)
+    .subscribe(granted -> {
+        if (granted) {
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            cordova.setActivityResultCallback(MideaUserPlugin.this);
+            cordova.startActivityForResult(MideaUserPlugin.this, intent, FLAG_CONTACT);
+        } else {
+            ToastUtils.showShort(cordova.getActivity(), "请开启通讯录权限");
+        }
+});
+```
+
